@@ -1,15 +1,18 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask import render_template
-from flask import request
 from flask import redirect
 import csv
+from flask import request
+
 
 def create_app():
     app = Flask(__name__)
     Bootstrap(app)
 
     return app
+
+
 app = create_app()
 
 
@@ -33,6 +36,10 @@ def write_to_csv(data):
         csv_writer.writerow([email, subject, message])
 
 
+if __name__ == '__main__':
+    app.run()
+
+
 @app.route('/submit_form', methods=['POST', 'GET'])
 def submit_form():
     if request.method == "POST":
@@ -44,6 +51,3 @@ def submit_form():
             return 'Did not save to database!'
     else:
         return 'Something went wrong!!!'
-
-if __name__ == '__main__':
-    app.run()
